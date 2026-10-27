@@ -713,7 +713,7 @@ sub checkRScriptVersion {
 	my $benchmark_roc_R = "$dirPath/../resources/R/benchmark_roc.R";
 
 	my $stdOut = `$Rscript_bin --version 2>&1`;
-	if ($stdOut =~ m/R scripting front-end version (\S+)/) {
+	if ($stdOut =~ m/(?:R scripting front-end|Rscript \(R\)) version (\S+)/) {
 		&reportAndLogStatus("Checking: Rscript version: $1", 0, "\n");#->2284
 	} else {
 		die "Rscript is not installed properly. Quitting.\n";
