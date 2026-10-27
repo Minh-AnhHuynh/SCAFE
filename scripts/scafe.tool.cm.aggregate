@@ -166,7 +166,7 @@ my ($lib_list_path, $max_thread, $genome, $outputPrefix, $outDir, $overwrite) = 
 my $paramTag = "$outputPrefix";
 my $num_chunk = 100;
 my $bgzip_sort_thread = 5;
-$max_thread = 10 if $max_thread > 10;
+#$max_thread = 10 if $max_thread > 10; #--- cap removed for HPC
 my $rm_tmp_file = 'yes';
 #<\section>
 #====================================================================================================================================================#

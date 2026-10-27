@@ -195,7 +195,7 @@ my $min_match_length = 5;
 my $max_non_G_mismatch = 10; #---[2021/08/15 15:44] maximum number of non-G mismatch allowed
 my $num_subsample = 100000; #---[2021/08/15 15:39] number of read to be sampled for TSO presence detection
 my $min_frac_subsample = 0.01; #---[2021/08/15 15:39] subsample fraction (-s option in samtools) for TSO presence detection
-$max_thread = 20 if $max_thread > 20;
+#$max_thread = 20 if $max_thread > 20; #--- cap removed for HPC
 #<\section>
 #====================================================================================================================================================#
 

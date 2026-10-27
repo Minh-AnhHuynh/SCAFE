@@ -171,7 +171,7 @@ v1.0.0 [June 6, 2022]
 #<section ID="startTasks" num="0">
 my $ARGV_ary_ref = [@ARGV];
 my ($run_bam_path, $run_cellbarcode_path, $genome, $training_signal_path, $testing_signal_path, $detect_TS_oligo, $max_thread, $run_tag, $run_outDir, $overwrite) = &readParameters();#->432
-$max_thread = 10 if $max_thread > 10;
+#$max_thread = 10 if $max_thread > 10; #--- cap removed for HPC
 my ($scafe_dir, $script_dir, $result_script_dir, $ARGVStr, $scriptAbsPath) = &prepDir($run_outDir, $ARGV_ary_ref);#->404
 &logCalledCMDAndScript($ARGVStr, $result_script_dir, $scriptAbsPath);#->379
 #<\section>

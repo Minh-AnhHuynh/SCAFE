@@ -168,7 +168,7 @@ my ($ctss_bed_path, $TS_oligo_seq, $min_edit_distance, $min_end_non_G_num, $max_
 #<section ID="defineHardCodedParam" num="1">
 my $chunk_size = 100000000;
 my $bgzip_sort_thread = 5;
-$max_thread = 10 if $max_thread > 10;
+#$max_thread = 10 if $max_thread > 10; #--- cap removed for HPC
 my $output_cutoff_hsh_ref = {
 	'min_edit_distance' => $min_edit_distance, #---[2019/12/19 20:21] is strand invader if <= X edit distance in the whole 13 nucleotides (i.e. 13 to turn out)
 	'min_end_non_G_num' => $min_end_non_G_num, #---[2019/12/19 20:21] is strand invader if <= X nonGs in the last 3 nucleotides (i.e. 3 to turn out)
