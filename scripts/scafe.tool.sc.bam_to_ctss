@@ -825,7 +825,14 @@ sub convertBamToCTSS {
 		close CTSSOUT;
 		close SANITYCHECK;
 
-		system "sort -k1,1 -k2,2n -k6,6 $chunk_unsort_UMI_CB_ctss_bed_path >$chunk_UMI_CB_ctss_bed_path";
+		#---[2026/10/27] bound GNU sort memory per chunk (one sort per thread). Unbounded, sort peaked at ~3.3x its input
+		#---(2.50 GB RSS on a 766 MB chunk on charon2) and OOM-killed jobs; with -S 1G it peaked at 1.05 GB (~18% slower).
+		#---Override with SCAFE_SORT_MEM (e.g. 2G, 10%) and SCAFE_SORT_TMPDIR (default: the chunk tmp dir, not node /tmp).
+		my $sort_mem = (defined $ENV{'SCAFE_SORT_MEM'} and $ENV{'SCAFE_SORT_MEM'} =~ m/^\d+(?:\.\d+)?[%bKMGTPEZY]?$/) ? $ENV{'SCAFE_SORT_MEM'} : '1G';
+		my $sort_tmp_dir = ($chunk_unsort_UMI_CB_ctss_bed_path =~ m{^(.*)/[^/]*$}) ? $1 : '.';
+		$sort_tmp_dir = '/' if $sort_tmp_dir eq '';
+		$sort_tmp_dir = $ENV{'SCAFE_SORT_TMPDIR'} if (defined $ENV{'SCAFE_SORT_TMPDIR'} and -d $ENV{'SCAFE_SORT_TMPDIR'});
+		system "sort -S $sort_mem -T '$sort_tmp_dir' -k1,1 -k2,2n -k6,6 $chunk_unsort_UMI_CB_ctss_bed_path >$chunk_UMI_CB_ctss_bed_path";
 		system "rm $chunk_unsort_UMI_CB_ctss_bed_path";
 		
 	} else {
